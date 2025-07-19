@@ -168,7 +168,10 @@ class VoiceConverter:
             )
             board.append(chorus)
         if kwargs.get("bitcrush", False):
-            bitcrush = Bitcrush(bit_depth=kwargs.get("bitcrush_bit_depth", 8))
+            bit_depth = kwargs.get("bitcrush_bit_depth", 8)
+            if isinstance(bit_depth, (dict, list)):
+                bit_depth = 8
+            bitcrush = Bitcrush(bit_depth=float(bit_depth))
             board.append(bitcrush)
         if kwargs.get("clipping", False):
             clipping = Clipping(threshold_db=kwargs.get("clipping_threshold", 0))
